@@ -1,0 +1,71 @@
+body {
+    font: 300 16px/22px 'Lato', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: center;
+    background: transparent linear-gradient(to right, #a1d3b0, #f6f1d3) repeat scroll 0 0;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 100;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+p {
+    font-size: 28px;
+    color: #648880;
+}
+
+.letters {
+    font-size: 40px;
+}
+
+.wrong {
+    color: #648880;
+}
+
+#guess {
+    width: 40px;
+}
+
+button {
+    font-size: 30px;
+    width: 160px;
+    height: 65px;
+    margin-top: 40px;
+    margin-bottom: 4px;
+}
+
+.btn {
+    font-weight: 100;
+    line-height: 1.3em;
+    cursor: pointer;
+    letter-spacing: .5px;
+    color: #fff;
+    border: 1px solid #dfe2e5;
+    border-radius: 5px;
+    background-color: #0b3f57;
+}
+
+progress {
+    width: 231px;
+    height: 30px;
+    color: #0b3f57;
+    -webkit-appearance: none;
+}
+
+progress::-webkit-progress-value {
+    width: 231px;
+    height: 30px;
+    /* Chrome */
+    background-color: #0b3f57;
+}
+
+progress::-moz-progress-bar {
+    width: 231px;
+    height: 30px;
+    /*Firefox */
+    background-color: #0b3f57;
+}

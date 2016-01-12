@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Guessing Game</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400">
+    <link rel="stylesheet" type="text/css" href="guess.css" media="all">
+</head>
+
+<body>
+    <h1>Guess a Letter</h1>
+    <p id="display" class="letters"></p>
+    <input id="guess" type="text" maxlength='1' class="letters" autofocus>
+    <p>Wrong Letters</p>
+    <p id="wrong" class="letters wrong"> </p>
+    <progress value="0" max="7"></progress>
+    <div>
+        <button class="btn">RESTART</button>
+    </div>
+    <p> Score: <span id="score"></span></p>
+    <script defer src="../scripts/jquery-1.11.3.js"></script>
+    <script defer src="../scripts/guess.js"></script>
+</body>
+
+</html>
