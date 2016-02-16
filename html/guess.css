@@ -1,7 +1,12 @@
 body {
     font: 300 16px/22px 'Lato', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     text-align: center;
-    background: transparent linear-gradient(to right, #a1d3b0, #f6f1d3) repeat scroll 0 0;
+/*    background: transparent linear-gradient(to right, #a1d3b0, #f6f1d3) repeat scroll 0 0;
+*/}
+
+body {
+background: #2a1a0e;
+background-image: url("zenbg.png");
 }
 
 h1 {
@@ -14,12 +19,12 @@ h1 {
 }
 
 p {
-    font-size: 28px;
+    font-size: 18px;
     color: #648880;
 }
 
 .letters {
-    font-size: 40px;
+    font-size: 22px;
 }
 
 .wrong {
