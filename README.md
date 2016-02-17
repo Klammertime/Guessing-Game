@@ -1,4 +1,4 @@
-# Memory Guessing Game
+# Memory: Guessing Game
 
 Play the game here:
 http://klammertime.github.io/Guessing-Game/
@@ -13,6 +13,7 @@ http://klammertime.github.io/Guessing-Game/
 * Have total snowed in score at top with snowflakes to show count
 * Fix font, the color, the size, the engraved font doesn't look engraved
 * Canvas on the left, game on the right using Flexbox and Canvas
+* Add fire?
 
 
 

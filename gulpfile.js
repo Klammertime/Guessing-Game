@@ -19,9 +19,9 @@ gulp.task("build", function() {
             "images/*",
             "js/*"
         ], {
-            base: "./"
+            base: './'
         })
-        .pipe(gulp.dest("dist"));
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('deploy', function() {
@@ -30,6 +30,6 @@ gulp.task('deploy', function() {
 })
 
 // Build task is a dependency of default task so can run command "gulp".
-gulp.task("default", ["clean"], function() {
+gulp.task('default', ['clean'], function() {
     gulp.start('build')
 });
