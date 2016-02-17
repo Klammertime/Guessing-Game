@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Guessing Game</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400">
+    <link rel="stylesheet" href="css/guess.css" media="all">
+</head>
+
+<body>
+    <div class="container">
+        <div id="snowScene"></div>
+        <section class="gameArea">
+            <h1>Guess a Letter</h1>
+            <p id="display" class="letters"></p>
+            <input id="guess" type="text" maxlength='1' class="letters" autofocus>
+            <p>Wrong Letters</p>
+            <p id="wrong" class="letters wrong"> </p>
+            <progress value="0" max="7"></progress>
+            <div>
+                <button class="btn">RESTART</button>
+            </div>
+            <p> Score: <span id="score"></span></p>
+        </section>
+    </div>
+    <script defer src="js/jquery-1.11.3.js"></script>
+    <script defer src="js/guess.js"></script>
+    <script src="js/resources.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/engine.js"></script>
+</body>
+
+</html>
