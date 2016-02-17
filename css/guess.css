@@ -1,22 +1,21 @@
 body {
-    font: 300 16px/22px 'Lato', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font: 400 16px/22px 'Lato', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     text-align: center;
     background: #2a1a0e;
+    color: #B3724A;
     background-image: url("../images/ZenBG.png");
 }
 
 h1 {
-    font-size: 48px;
-    font-weight: 100;
+    font-size: 60px;
+    font-weight: 400;
     margin-top: 50px;
-    margin-bottom: 50px;
     letter-spacing: .5px;
     text-transform: uppercase;
 }
 
 p {
     font-size: 18px;
-    color: #648880;
 }
 
 .letters {
@@ -24,7 +23,6 @@ p {
 }
 
 .wrong {
-    color: #648880;
 }
 
 #guess {
@@ -40,20 +38,19 @@ button {
 }
 
 .btn {
-    font-weight: 100;
+    font-weight: 300;
     line-height: 1.3em;
     cursor: pointer;
     letter-spacing: .5px;
-    color: #fff;
-    border: 1px solid #dfe2e5;
+    color: #B3724A;
     border-radius: 5px;
-    background-color: #0b3f57;
+    background-color: #462B1A;
 }
 
 progress {
     width: 231px;
     height: 30px;
-    color: #0b3f57;
+    color: #B3724A;
     -webkit-appearance: none;
 }
 
@@ -61,16 +58,38 @@ progress::-webkit-progress-value {
     width: 231px;
     height: 30px;
     /* Chrome */
-    background-color: #0b3f57;
+    background-color: #B3724A;
 }
 
 progress::-moz-progress-bar {
     width: 231px;
     height: 30px;
     /*Firefox */
-    background-color: #0b3f57;
+    background-color: #B3724A;
 }
 
+/* engraved font adapted from http://codepen.io/lisa_c/pen/azbPNV */
+
+.engraved-font {
+    color: #462B1A;
+    /*    background-color: #5D8D89;
+*/
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, .3), 0px -1px 0px rgba(0, 0, 0, .7);
+}
+
+/*p {
+    margin: 5px 30px 15px;
+    font-family: "Century Gothic", "HelveticaNeueLT Pro 45 Lt", sans-serif;
+}*/
+
+.engraved div {
+    height: 65px;
+    line-height: 60px;
+    font-family: "Century Gothic", "Helvetica", sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
 /*
 TODO: Makes this flexbox and adjust canvas in js
 
