@@ -3,6 +3,103 @@
  *
  */
 'use strict';
+
+var canvasWidth = 1000,
+    canvasHeight = 700,
+    allFlakes = [],
+    Entity,
+    Flake,
+    flake,
+    WindowPane,
+    whiteWindow;
+
+Entity = function(x, y, width, height) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+};
+
+WindowPane = function(x, y, width, height, sprite) {
+    Entity.call(this, x, y, width, height);
+    this.sprite = 'images/justWindow.png';
+    this.x = 300;
+    this.y = 20;
+    this.width = 1000 * 0.4;
+    this.height = 637 * 0.4;
+};
+
+WindowPane.prototype = Object.create(Entity.prototype);
+
+WindowPane.prototype.constructor = WindowPane;
+
+whiteWindow = new WindowPane();
+
+WindowPane.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
+};
+
+WindowPane.prototype.clip = function() {
+    // create clipping region
+    ctx.beginPath();
+    ctx.rect(this.x, this.y, this.width, this.height);
+    ctx.clip();
+    // create sky so less than window width and height
+    ctx.drawImage(Resources.get('images/northernSky.png'), this.x + 20, this.y, this.width - 40, this.height);
+
+};
+
+Flake = function() {
+    this.x = Math.round(Math.random() * 800);
+    this.y = Math.round(Math.random() * -800);
+    this.drift = Math.random();
+    this.speed = Math.floor((Math.random() * 100) + 1);
+    this.width = (Math.random() * 3) + 2;
+    this.height = this.width;
+    this.maxFlakes = 200;
+};
+
+Flake.prototype.render = function() {
+    var minFlakeX = whiteWindow.x + 20,
+        maxFlakeX = whiteWindow.width + whiteWindow.x - 60;
+    ctx.fillStyle = "white";
+    if (this.x > minFlakeX && this.x < maxFlakeX) {
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+};
+
+flake = new Flake();
+
+Flake.prototype.createCollection = function() {
+    var maxFlakes = this.maxFlakes;
+    for (var i = 0; i < maxFlakes; i++) {
+        allFlakes.push(new Flake());
+    }
+};
+
+flake.createCollection();
+
+Flake.prototype.update = function(dt) {
+    var futureX = this.x,
+        futureY = this.y,
+        maxY = canvasHeight,
+        maxX = canvasWidth,
+        flakeCollectionLength = this.maxFlakes;
+    for (var i = 0; i < flakeCollectionLength; i++) {
+        if (this.y < maxY) {
+            this.y += (this.speed * dt) / 90;
+            if (this.y > maxY) {
+                this.y = -5;
+            }
+            this.x += this.drift / 600;
+            if (this.x > maxX) {
+                this.x = 0;
+            }
+        }
+    }
+};
+
+
 //Define a container for the game, its variables and its methods.
 var game = {
     score: 0,
@@ -20,9 +117,7 @@ var game = {
         'leaves',
         'moon',
         'northern lights',
-        'transition',
-        'snowstorm',
-        'exotic wallpaper'
+        'snowstorm'
     ]
 };
 
@@ -78,6 +173,7 @@ game.play = function() {
         } else { // If it's a wrong guess
             game.wrong = letter + ' ' + game.wrong;
             game.wrongCount++;
+
             $('#wrong').text(game.wrong);
             $('progress').val(game.wrongCount);
         }
@@ -90,15 +186,20 @@ game.play = function() {
     }
 };
 
-
 game.outcome = function() {
     // check if the game is won or lost
     if (game.answer === game.display) {
         $('#wrong').text('Congratulations! You win and may leave the house!');
         game.over = true; // game is over.  User has to restart to play again
         game.updateScore(20);
+        flake.maxFlakes -= 300;
+        flake.speed -= 50;
+        flake.createCollection();
     } else if (game.wrongCount > 6) {
-        $('#wrong').text('You lose and there is so much snow, good luck getting out of the house! The answer was ' + game.answer);
+        flake.maxFlakes += 300;
+        flake.speed += 50;
+        flake.createCollection();
+        $('#wrong').text('You lose. The answer was ' + game.answer + '. The snow is getting worse. You might get snowed in!');
         game.over = true; // game is over.  User has to restart to play again
         // update score in local storage and on page
         game.updateScore(-10);
