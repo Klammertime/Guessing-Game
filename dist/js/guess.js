@@ -13,17 +13,16 @@ var game = {
     wrongCount: 0, // the number of wrong guesses so far
     over: false, // is the game over?
     answersList: [ // list of answers to cycle through
-        'JavaScript',
-        'document',
-        'element',
-        'ajax',
-        'jQuery',
-        'json',
-        'symbol',
+        'lamp',
+        'cat',
+        'snow',
+        'couch',
+        'leaves',
+        'moon',
+        'northern lights',
         'transition',
-        'window',
-        'event',
-        'object'
+        'snowstorm',
+        'exotic wallpaper'
     ]
 };
 
@@ -95,11 +94,11 @@ game.play = function() {
 game.outcome = function() {
     // check if the game is won or lost
     if (game.answer === game.display) {
-        $('#wrong').text('Congratulations!  You win');
+        $('#wrong').text('Congratulations! You win and may leave the house!');
         game.over = true; // game is over.  User has to restart to play again
         game.updateScore(20);
     } else if (game.wrongCount > 6) {
-        $('#wrong').text('No more guesses - the answer was ' + game.answer);
+        $('#wrong').text('You lose and there is so much snow, good luck getting out of the house! The answer was ' + game.answer);
         game.over = true; // game is over.  User has to restart to play again
         // update score in local storage and on page
         game.updateScore(-10);

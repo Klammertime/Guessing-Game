@@ -1,7 +1,7 @@
 "use strict";
 
-var canvasWidth = 500,
-    canvasHeight = 400,
+var canvasWidth = 1000,
+    canvasHeight = 700,
     allFlakes = [],
     Entity,
     Flake,
@@ -19,10 +19,10 @@ Entity = function(x, y, width, height) {
 WindowPane = function(x, y, width, height, sprite) {
     Entity.call(this, x, y, width, height);
     this.sprite = 'images/justWindow.png';
-    this.x = canvasWidth / 8;
-    this.y = canvasHeight / 4;
-    this.width = canvasWidth * 0.8;
-    this.height = 318;
+    this.x = 300;
+    this.y = 20;
+    this.width = 1000 * 0.4;
+    this.height = 637 * 0.4;
 };
 
 WindowPane.prototype = Object.create(Entity.prototype);
@@ -41,8 +41,8 @@ WindowPane.prototype.clip = function() {
     ctx.rect(this.x, this.y, this.width, this.height);
     ctx.clip();
     // create sky so less than window width and height
-    ctx.fillStyle = "#330033";
-    ctx.fillRect(this.x + 20, this.y, this.width - 40, this.height);
+    ctx.drawImage(Resources.get('images/northernSky.png'), this.x + 20, this.y, this.width - 40, this.height);
+
 };
 
 Flake = function() {

@@ -7,8 +7,8 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 500;
-    canvas.height = 400;
+    canvas.width = 1000;
+    canvas.height = 700;
     canvas.id = 'board';
 
     doc.getElementById('snowScene').appendChild(canvas);
@@ -37,16 +37,12 @@ var Engine = (function(global) {
         });
     }
 
-    function createWall() {
-        var pattern = ctx.createPattern(Resources.get('images/ZenBG.png'), 'repeat');
-        ctx.beginPath();
-        ctx.fillStyle = "#2a1a0e";
-        ctx.fillStyle = pattern;
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    function createRoom() {
+        ctx.drawImage(Resources.get('images/roomRed2.png'), 0, 0, ctx.canvas.width, ctx.canvas.height);
     }
 
     function render() {
-        createWall();
+        createRoom();
         whiteWindow.clip();
         allFlakes.forEach(function(flake) {
             flake.render();
@@ -55,8 +51,9 @@ var Engine = (function(global) {
     }
 
     Resources.load([
-        'images/ZenBG.png',
-        'images/justWindow.png'
+        'images/justWindow.png',
+        'images/roomRed2.png',
+        'images/northernSky.png'
     ]);
 
     Resources.onReady(init);

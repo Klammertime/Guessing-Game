@@ -1,13 +1,12 @@
 body {
     font: 400 16px/22px 'Lato', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     text-align: center;
-    background: #2a1a0e;
-    color: #B3724A;
-    background-image: url("../images/ZenBG.png");
+    background: #191919;
+    color: #b4b4b4;
 }
 
 h1 {
-    font-size: 60px;
+    font-size: 32px;
     font-weight: 400;
     margin-top: 50px;
     letter-spacing: .5px;
@@ -16,13 +15,11 @@ h1 {
 
 p {
     font-size: 18px;
+    padding: 12px;
 }
 
 .letters {
     font-size: 22px;
-}
-
-.wrong {
 }
 
 #guess {
@@ -42,15 +39,15 @@ button {
     line-height: 1.3em;
     cursor: pointer;
     letter-spacing: .5px;
-    color: #B3724A;
+    color: #b4b4b4;
     border-radius: 5px;
-    background-color: #462B1A;
+    background-color: #115C6F;
 }
 
 progress {
     width: 231px;
     height: 30px;
-    color: #B3724A;
+    color: #d62626;
     -webkit-appearance: none;
 }
 
@@ -58,48 +55,26 @@ progress::-webkit-progress-value {
     width: 231px;
     height: 30px;
     /* Chrome */
-    background-color: #B3724A;
+    background-color: #D62626;
 }
 
 progress::-moz-progress-bar {
     width: 231px;
     height: 30px;
     /*Firefox */
-    background-color: #B3724A;
+    background-color: #D62626;
 }
 
-/* engraved font adapted from http://codepen.io/lisa_c/pen/azbPNV */
-
-.engraved-font {
-    color: #462B1A;
-    /*    background-color: #5D8D89;
-*/
-    text-shadow: 0px 1px 0px rgba(255, 255, 255, .3), 0px -1px 0px rgba(0, 0, 0, .7);
-}
-
-/*p {
-    margin: 5px 30px 15px;
-    font-family: "Century Gothic", "HelveticaNeueLT Pro 45 Lt", sans-serif;
-}*/
-
-.engraved div {
-    height: 65px;
-    line-height: 60px;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-}
-/*
-TODO: Makes this flexbox and adjust canvas in js
-
- .container {
-    display: inline-block;
-}
-
-.half {
-    width: 50%;
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .left {
-    float: left;
-}*/
+    flex: 1;
+}
+
+.right {
+    flex: 2;
+}
