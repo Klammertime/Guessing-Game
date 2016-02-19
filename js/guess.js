@@ -131,7 +131,7 @@ game.restart = function() {
     // yield different results when the property does not exist:
     // localStorage.getItem("noSuchProperty"); is null if it doesn't exit
     // and Number(null) is 0
-    $('.wrongHeader').show();
+    // $('.wrongHeader').show();
     game.answerPosition = Number(localStorage.getItem("Guessing Game Position"));
     game.answer = game.answersList[game.answerPosition].toLowerCase(); // get the word from this round
     // from the answerList by using the updated answerPosition from localStorage.getItem. Looks like
@@ -200,9 +200,9 @@ game.outcome = function() {
         flake.speed += 50;
         flake.createCollection();
         //hide wrong letters header
-        $('.wrongHeader').hide();
+        // $('.wrongHeader').hide();
         // If lose, fill in word
-        $('#display').text(game.answer);
+        // $('#display').text(game.answer);
         $('#wrong').text('You lose. The snow is getting worse!');
         game.over = true; // game is over.  User has to restart to play again
         // update score in local storage and on page
