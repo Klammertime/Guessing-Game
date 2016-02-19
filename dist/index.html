@@ -13,26 +13,19 @@
         <section id="snowScene" class="left"></section>
         <section class="gameArea right">
             <h1 class="engraved-font">Mystery Word</h1>
-
             <p>Hint: Word appears in the picture.</p>
             <p id="display" class="letters"></p>
             <form>
                 <fieldset class="guessArea">
                     <label>
                         Guess A Letter
-                        <input id="guess" type="text" class="letters" autofocus>
+                        <input id="guess" type="text" maxlength="1" class="letters" autofocus>
                     </label>
-<!--                     <section class="wrongLettersArea">
- -->                        <p class="wrongHeader">Wrong Letters</p>
-                        <p id="wrong" class="letters wrong"> </p>
-                        <progress value="0" max="7"></progress>
-                        <p> Score: <span id="score"></span></p>
-<!--                     </section>
- -->
-<!--                     <div>
- -->                        <a class="btn" type="submit" name="Restart" value="Restart">Restart</a>
-<!--                     </div>
- -->
+                    <p class="wrongHeader">Wrong Letters</p>
+                    <p id="wrong" class="letters wrong"> </p>
+                    <progress value="0" max="7"></progress>
+                    <p> Score: <span id="score"></span></p>
+                    <a class="btn" type="submit" name="Restart" value="Restart">Restart</a>
                 </fieldset>
             </form>
         </section>
