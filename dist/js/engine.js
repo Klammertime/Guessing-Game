@@ -7,8 +7,8 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 1000;
-    canvas.height = 700;
+    canvas.width = 1100;
+    canvas.height = 770;
     canvas.id = 'board';
 
     doc.getElementById('snowScene').appendChild(canvas);
@@ -53,7 +53,9 @@ var Engine = (function(global) {
     Resources.load([
         'images/justWindow.png',
         'images/roomRed2.png',
-        'images/northernSky.png'
+        'images/northernSky.png',
+        'images/livingRoomRedBlack1100.png',
+
     ]);
 
     Resources.onReady(init);

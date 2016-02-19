@@ -12,17 +12,29 @@
     <div class="container">
         <section id="snowScene" class="left"></section>
         <section class="gameArea right">
-            <h1 class="engraved-font">Guessing Game</h1>
-            <p>Guess the correct word and avoid getting snowed in. Hint: the word is something in the picture.</p>
+            <h1 class="engraved-font">Mystery Word</h1>
+
+            <p>Hint: Word appears in the picture.</p>
             <p id="display" class="letters"></p>
-            <input id="guess" type="text" maxlength='1' class="letters" autofocus>
-            <p>Wrong Letters</p>
-            <p id="wrong" class="letters wrong"> </p>
-            <progress value="0" max="7"></progress>
-            <div>
-                <button class="btn">RESTART</button>
-            </div>
-            <p> Score: <span id="score"></span></p>
+            <form>
+                <fieldset class="guessArea">
+                    <label>
+                        Guess A Letter
+                        <input id="guess" type="text" class="letters" autofocus>
+                    </label>
+<!--                     <section class="wrongLettersArea">
+ -->                        <p class="wrongHeader">Wrong Letters</p>
+                        <p id="wrong" class="letters wrong"> </p>
+                        <progress value="0" max="7"></progress>
+                        <p> Score: <span id="score"></span></p>
+<!--                     </section>
+ -->
+<!--                     <div>
+ -->                        <a class="btn" type="submit" name="Restart" value="Restart">Restart</a>
+<!--                     </div>
+ -->
+                </fieldset>
+            </form>
         </section>
     </div>
     <script defer src="js/jquery-1.11.3.js"></script>
