@@ -4,8 +4,8 @@
  */
 'use strict';
 
-var canvasWidth = 1000,
-    canvasHeight = 700,
+var canvasWidth = 1100,
+    canvasHeight = 770,
     allFlakes = [],
     Entity,
     Flake,
@@ -61,7 +61,7 @@ Flake = function() {
 
 Flake.prototype.render = function() {
     var minFlakeX = whiteWindow.x + 20,
-        maxFlakeX = whiteWindow.width + whiteWindow.x - 60;
+        maxFlakeX = whiteWindow.width + whiteWindow.x - 30;
     ctx.fillStyle = "white";
     if (this.x > minFlakeX && this.x < maxFlakeX) {
         ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -131,7 +131,7 @@ game.restart = function() {
     // yield different results when the property does not exist:
     // localStorage.getItem("noSuchProperty"); is null if it doesn't exit
     // and Number(null) is 0
-
+    $('.wrongHeader').show();
     game.answerPosition = Number(localStorage.getItem("Guessing Game Position"));
     game.answer = game.answersList[game.answerPosition].toLowerCase(); // get the word from this round
     // from the answerList by using the updated answerPosition from localStorage.getItem. Looks like
@@ -199,7 +199,11 @@ game.outcome = function() {
         flake.maxFlakes += 300;
         flake.speed += 50;
         flake.createCollection();
-        $('#wrong').text('You lose. The answer was ' + game.answer + '. The snow is getting worse. You might get snowed in!');
+        //hide wrong letters header
+        $('.wrongHeader').hide();
+        // If lose, fill in word
+        $('#display').text(game.answer);
+        $('#wrong').text('You lose. The snow is getting worse!');
         game.over = true; // game is over.  User has to restart to play again
         // update score in local storage and on page
         game.updateScore(-10);
@@ -226,5 +230,5 @@ game.updatePosition = function() {
 $(document).ready(function() {
     game.restart();
     $('#guess').on('input', game.play);
-    $('button').click(game.restart);
+    $('a').click(game.restart);
 });
