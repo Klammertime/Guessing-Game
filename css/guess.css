@@ -13,6 +13,11 @@ h1 {
     text-transform: uppercase;
 }
 
+#canvas {
+max-width: 100%;
+height: auto;
+}
+
 #guess {
     width: 40px;
     padding: 5px;

@@ -1,13 +1,10 @@
-/*
- * Word Guessing Game
- *
- */
 'use strict';
 
-var canvasWidth = 1100,
-    canvasHeight = 770,
+var canvasWidth = ctx.canvas.width,
+    canvasHeight = ctx.canvas.height,
     allFlakes = [],
     Entity,
+    entity,
     Flake,
     flake,
     WindowPane,
@@ -20,20 +17,23 @@ Entity = function(x, y, width, height) {
     this.height = height;
 };
 
-WindowPane = function(x, y, width, height, sprite) {
+entity = new Entity(0,0,0,0);
+
+WindowPane = function(x, y, width, height) {
     Entity.call(this, x, y, width, height);
     this.sprite = 'images/justWindow.png';
-    this.x = 300;
-    this.y = 20;
-    this.width = 1000 * 0.4;
-    this.height = 637 * 0.4;
+    this.x = x;
+    this.y = y;
+    //TODO: make 1000 and 637 img.naturalWidth and img.naturalHeight
+    this.width = width * 0.4;
+    this.height = height * 0.4;
 };
 
 WindowPane.prototype = Object.create(Entity.prototype);
 
 WindowPane.prototype.constructor = WindowPane;
 
-whiteWindow = new WindowPane();
+whiteWindow = new WindowPane(360, 20, 1000, 637);
 
 WindowPane.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
@@ -46,7 +46,6 @@ WindowPane.prototype.clip = function() {
     ctx.clip();
     // create sky so less than window width and height
     ctx.drawImage(Resources.get('images/northernSky.png'), this.x + 20, this.y, this.width - 40, this.height);
-
 };
 
 Flake = function() {
@@ -62,7 +61,7 @@ Flake = function() {
 Flake.prototype.render = function() {
     var minFlakeX = whiteWindow.x + 20,
         maxFlakeX = whiteWindow.width + whiteWindow.x - 30;
-    ctx.fillStyle = "white";
+    ctx.fillStyle = 'white';
     if (this.x > minFlakeX && this.x < maxFlakeX) {
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
@@ -82,9 +81,10 @@ flake.createCollection();
 Flake.prototype.update = function(dt) {
     var futureX = this.x,
         futureY = this.y,
-        maxY = canvasHeight,
-        maxX = canvasWidth,
+        maxY = canvas.height,
+        maxX = canvas.width,
         flakeCollectionLength = this.maxFlakes;
+
     for (var i = 0; i < flakeCollectionLength; i++) {
         if (this.y < maxY) {
             this.y += (this.speed * dt) / 90;
@@ -98,7 +98,6 @@ Flake.prototype.update = function(dt) {
         }
     }
 };
-
 
 //Define a container for the game, its variables and its methods.
 var game = {
@@ -132,7 +131,7 @@ game.restart = function() {
     // localStorage.getItem("noSuchProperty"); is null if it doesn't exit
     // and Number(null) is 0
     // $('.wrongHeader').show();
-    game.answerPosition = Number(localStorage.getItem("Guessing Game Position"));
+    game.answerPosition = Number(localStorage.getItem('Guessing Game Position'));
     game.answer = game.answersList[game.answerPosition].toLowerCase(); // get the word from this round
     // from the answerList by using the updated answerPosition from localStorage.getItem. Looks like
     // you can call it whatever you want even with spaces because its always a string.
@@ -224,7 +223,6 @@ game.updatePosition = function() {
     // save it in storage
     localStorage['Guessing Game Position'] = game.answerPosition;
 };
-
 
 // Main program starts here
 $(document).ready(function() {
