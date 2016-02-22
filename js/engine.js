@@ -7,22 +7,18 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    var img = new Image();
+    // var img = new Image();
 
-    img.onload = function() {
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        ctx.drawImage(img, 0, 0);
-    };
+    // img.onload = function() {
+        canvas.width = 1000;
+        canvas.height = 700;
+        // ctx.drawImage(img, 0, 0);
+    //     room.render();
+    // };
 
-    img.src = 'images/livingRoomRedBlack1100.png';
+    // img.src = 'images/livingRoomRedBlack1100.png';
 
-    //TODO: figure out if want to use this way, to use Resources.get, prob do
-    // function createRoom() {
-    //     ctx.drawImage(Resources.get('images/roomRed2.png'), 0, 0, ctx.canvas.width, ctx.canvas.height);
-    // }
-
-    canvas.id = 'board';
+    canvas.id = 'respondCanvas';
 
     doc.getElementById('snowScene').appendChild(canvas);
 
@@ -51,6 +47,8 @@ var Engine = (function(global) {
     }
 
     function render() {
+        room.render();
+
         whiteWindow.clip();
         allFlakes.forEach(function(flake) {
             flake.render();
@@ -63,11 +61,17 @@ var Engine = (function(global) {
         'images/roomRed2.png',
         'images/northernSky.png',
         'images/livingRoomRedBlack1100.png',
-
+        'images/livingRoom1000.png',
+        'images/window1000.png',
+        'images/livingRoom2000.png',
+        'images/livingRoom3000.png',
+        'images/window2000.png'
     ]);
 
     Resources.onReady(init);
 
     global.ctx = ctx;
     global.canvas = canvas;
+
 })(this);
+
