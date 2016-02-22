@@ -1,14 +1,16 @@
 'use strict';
 
-var canvasWidth = ctx.canvas.width,
-    canvasHeight = ctx.canvas.height,
+var canvasWidth = canvas.width,
+    canvasHeight = canvas.height,
     allFlakes = [],
     Entity,
     entity,
     Flake,
     flake,
     WindowPane,
-    whiteWindow;
+    whiteWindow,
+    Room,
+    room;
 
 Entity = function(x, y, width, height) {
     this.x = x;
@@ -19,21 +21,40 @@ Entity = function(x, y, width, height) {
 
 entity = new Entity(0,0,0,0);
 
+Room = function(x, y, width, height) {
+    Entity.call(this, x, y, width, height);
+    this.sprite = 'images/livingRoom1000.png';
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+}
+
+Room.prototype = Object.create(Entity.prototype);
+
+Room.prototype.constructor = Room;
+
+room = new Room(0, 0, canvasWidth, canvasHeight);
+
+Room.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
+}
+
 WindowPane = function(x, y, width, height) {
     Entity.call(this, x, y, width, height);
-    this.sprite = 'images/justWindow.png';
+    this.sprite = 'images/window2000.png';
     this.x = x;
     this.y = y;
     //TODO: make 1000 and 637 img.naturalWidth and img.naturalHeight
-    this.width = width * 0.4;
-    this.height = height * 0.4;
+    this.width = canvasWidth * 0.4;
+    this.height = canvasHeight * 0.4;
 };
 
 WindowPane.prototype = Object.create(Entity.prototype);
 
 WindowPane.prototype.constructor = WindowPane;
 
-whiteWindow = new WindowPane(360, 20, 1000, 637);
+whiteWindow = new WindowPane(305, 30, 1000, 637);
 
 WindowPane.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);

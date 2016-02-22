@@ -10,30 +10,32 @@
 
 <body>
     <div class="container">
-        <section id="snowScene" class="left"></section>
-        <section class="gameArea right">
-            <h1 class="engraved-font">Mystery Word</h1>
-            <p>Hint: Word appears in the picture.</p>
-            <p id="display" class="letters"></p>
-            <form>
-                <fieldset class="guessArea">
-                    <label>
-                        Guess A Letter
-                        <input id="guess" type="text" maxlength="1" class="letters" autofocus>
-                    </label>
-                    <p class="wrongHeader">Wrong Letters</p>
-                    <p id="wrong" class="letters wrong"> </p>
-                    <progress value="0" max="7"></progress>
-                    <p> Score: <span id="score"></span></p>
-                    <a class="btn" type="submit" name="Restart" value="Restart">Restart</a>
-                </fieldset>
-            </form>
-        </section>
-    </div>
-    <script defer src="js/jquery-1.11.3.js"></script>
-    <script defer src="js/guess.js"></script>
+            <section id="snowScene" class="left"></section>
+            <section class="gameArea right">
+                <h1 class="engraved-font">Mystery Word</h1>
+                <p>Hint: Word appears in the picture.</p>
+                <p id="display" class="letters"></p>
+                <form>
+                    <fieldset class="guessArea">
+                        <label>
+                            Guess A Letter
+                            <input id="guess" type="text" maxlength="1" class="letters" autofocus>
+                        </label>
+                        <p class="wrongHeader">Wrong Letters</p>
+                        <p id="wrong" class="letters wrong"> </p>
+                        <progress value="0" max="7"></progress>
+                        <p> Score: <span id="score"></span></p>
+                        <a class="btn" type="submit" name="Restart" value="Restart">Restart</a>
+                    </fieldset>
+                </form>
+            </section>
+        </div>
+
+    <script src="js/jquery-1.11.3.js"></script>
     <script src="js/resources.js"></script>
     <script src="js/engine.js"></script>
+    <script src="js/guess.js"></script>
+
 </body>
 
 </html>
