@@ -13,9 +13,9 @@ h1 {
     text-transform: uppercase;
 }
 
-#canvas {
-max-width: 100%;
-height: auto;
+canvas {
+    width: 100%;
+    height: auto;
 }
 
 #guess {
@@ -74,6 +74,7 @@ progress::-moz-progress-bar {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .gameArea {
@@ -90,8 +91,16 @@ progress::-moz-progress-bar {
 
 .left {
     flex: 1;
+    flex-grow: 8;
 }
 
 .right {
     flex: 2;
+}
+
+@media screen and (max-width: 900px){
+
+    .container {
+        flex-direction: column;
+    }
 }
