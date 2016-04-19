@@ -1,8 +1,42 @@
-body {
+/*body {
     font: 400 18px/25px 'Lato', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     text-align: center;
     background: #191919;
     color: #b4b4b4;
+}*/
+
+body {
+    font-family: 'proxima-nova', sans-serif;
+    text-align: center;
+    background: #191919;
+    font-weight: 600;
+    font-size: 18px;
+    color: #2DABB3;
+}
+
+.logo-font {
+    font-family: 'bello-pro', sans-serif;
+    font-size: 25px;
+    position: relative;
+    display: block;
+    color: #fff;
+/*    text-shadow: 3px 3px 0 #2D9BA7, -1px -1px 0 #2D9BA7, 1px -1px 0 #2D9BA7, -1px 1px 0 #2D9BA7, 1px 1px 0 #2D9BA7;
+*/}
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex: 1;
 }
 
 h1 {
@@ -70,12 +104,7 @@ progress::-moz-progress-bar {
     background-color: #D62626;
 }
 
-.container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    flex-direction: row;
-}
+
 
 .gameArea {
     padding: 15px;
@@ -91,14 +120,14 @@ progress::-moz-progress-bar {
 
 .left {
     flex: 1;
-    flex-grow: 8;
+    flex-grow: 10;
 }
 
 .right {
     flex: 2;
 }
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 1100px){
 
     .container {
         flex-direction: column;

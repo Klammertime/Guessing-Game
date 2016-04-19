@@ -1,8 +1,7 @@
+(function() {
 'use strict';
 
-var canvasWidth = canvas.width,
-    canvasHeight = canvas.height,
-    allFlakes = [],
+var allFlakes = [],
     Entity,
     entity,
     Flake,
@@ -10,7 +9,64 @@ var canvasWidth = canvas.width,
     WindowPane,
     whiteWindow,
     Room,
-    room;
+    room,
+    canvas = document.createElement('canvas'),
+    ctx = canvas.getContext('2d'),
+    lastTime;
+    canvas.width = 1100;
+    canvas.height = 770;
+    canvas.id = 'respondCanvas';
+    document.getElementById('snowScene').appendChild(canvas);
+
+    function main() {
+        var now = Date.now(),
+            dt = (now - lastTime) / 1000.0;
+        update(dt);
+        render();
+        lastTime = now;
+        window.requestAnimationFrame(main);
+    }
+
+    function init() {
+        lastTime = Date.now();
+        main();
+    }
+
+    function update(dt) {
+        updateFlakes(dt);
+    }
+
+    function updateFlakes(dt) {
+        allFlakes.forEach(function(flake) {
+            flake.update(dt);
+        });
+    }
+
+    function render() {
+        room.render();
+
+        whiteWindow.clip();
+        allFlakes.forEach(function(flake) {
+            flake.render();
+        });
+        whiteWindow.render();
+    }
+
+    Resources.load([
+        'images/justWindow.png',
+        'images/roomRed2.png',
+        'images/northernSky.png',
+        'images/livingRoomRedBlack1100.png',
+        'images/livingRoom1000.png',
+        'images/window1000.png',
+        'images/livingRoom2000.png',
+        'images/livingRoom3000.png',
+        'images/window2000.png'
+    ]);
+
+    Resources.onReady(init);
+
+
 
 Entity = function(x, y, width, height) {
     this.x = x;
@@ -19,35 +75,34 @@ Entity = function(x, y, width, height) {
     this.height = height;
 };
 
-entity = new Entity(0,0,0,0);
+entity = new Entity(0, 0, 0, 0);
 
 Room = function(x, y, width, height) {
     Entity.call(this, x, y, width, height);
-    this.sprite = 'images/livingRoom1000.png';
+    this.sprite = 'images/livingRoomRedBlack1100.png';
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-}
+};
 
 Room.prototype = Object.create(Entity.prototype);
 
 Room.prototype.constructor = Room;
 
-room = new Room(0, 0, canvasWidth, canvasHeight);
+room = new Room(0, 0, canvas.width, canvas.height);
 
 Room.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
-}
+};
 
 WindowPane = function(x, y, width, height) {
     Entity.call(this, x, y, width, height);
     this.sprite = 'images/window2000.png';
     this.x = x;
     this.y = y;
-    //TODO: make 1000 and 637 img.naturalWidth and img.naturalHeight
-    this.width = canvasWidth * 0.4;
-    this.height = canvasHeight * 0.4;
+    this.width = canvas.width * 0.4;
+    this.height = canvas.height * 0.4;
 };
 
 WindowPane.prototype = Object.create(Entity.prototype);
@@ -141,17 +196,13 @@ var game = {
     ]
 };
 
-
 game.restart = function() {
     // Initialize the game at the beginning or after restart
-    // Initialize the game variables - the model
-
     // Get the answer position from storage
     // Note that the getItem method and the standard object notation
     // yield different results when the property does not exist:
     // localStorage.getItem("noSuchProperty"); is null if it doesn't exit
     // and Number(null) is 0
-    // $('.wrongHeader').show();
     game.answerPosition = Number(localStorage.getItem('Guessing Game Position'));
     game.answer = game.answersList[game.answerPosition].toLowerCase(); // get the word from this round
     // from the answerList by using the updated answerPosition from localStorage.getItem. Looks like
@@ -219,10 +270,6 @@ game.outcome = function() {
         flake.maxFlakes += 300;
         flake.speed += 50;
         flake.createCollection();
-        //hide wrong letters header
-        // $('.wrongHeader').hide();
-        // If lose, fill in word
-        // $('#display').text(game.answer);
         $('#wrong').text('You lose. The snow is getting worse!');
         game.over = true; // game is over.  User has to restart to play again
         // update score in local storage and on page
@@ -251,3 +298,4 @@ $(document).ready(function() {
     $('#guess').on('input', game.play);
     $('a').click(game.restart);
 });
+})();
