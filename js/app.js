@@ -67,7 +67,6 @@ var allFlakes = [],
     Resources.onReady(init);
 
 
-
 Entity = function(x, y, width, height) {
     this.x = x;
     this.y = y;
