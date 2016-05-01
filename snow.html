@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Canvas Test Using Double Buffering</title>
+    <script type="text/javascript">
+      var canvas = null;
+      var context = null;
+      var bufferCanvas = null; // what we create offscreen
+      var bufferCanvasCtx = null; // what we create offscreen
+      var flakeArray = [];
+      var flakeTimer = null;
+      var maxFlakes = 1000;
+
+      function Flake() {
+        // each flake has an x and y position
+        // Want each snowflake to have a diff. starting position
+        // when falls down, either right or left. We create a random
+        // number then multiply by width of canvas so that it will
+        // give us a number from 0 to far right of canvas, round to int
+        this.x = Math.round(Math.random() * context.canvas.width);
+        this.y = -10; // always starts above top of canvas, -10 is above, 10 // would be 10 below top of canvas
+        // We don't want each snowflake to fall straight down, so we created
+        // a drif property, between 0 to 1, and we add this to the x
+        // position each time to give a bit of drift
+        this.drift = Math.random();
+        // want each snowflake to fall at a slightly diff speed
+        // first get 0 - 5 but don't want a value of 0 so that snowflake
+        // sits out there in space not moving, so add 1 so now its 1 - 6
+        this.speed = Math.round(Math.random() * 5) + 1;
+        // want widths to vary since snowflake widths vary, get number
+        // between 0 and 3, but don't want a width of 0, want it visible
+        // so now at least 2 and 5 width
+        this.width = (Math.random() * 3) + 2;
+        // now they are square, so height is width
+        this.height = this.width;
+      }
+
+
+      // gets called when doc loads
+      function init() {
+        canvas = document.getElementById('testCanvas');
+        context = canvas.getContext("2d");
+
+        // this canvas is created but not IN the page
+        // its floating in space somewhere but we can still
+        // use it to draw
+        bufferCanvas = document.createElement("canvas");
+        bufferCanvasCtx = bufferCanvas.getContext("2d");
+        bufferCanvasCtx.canvas.width = context.canvas.width;
+        bufferCanvasCtx.canvas.height = context.canvas.height;
+
+        // initialize the rects
+        // this adds snowflakes to the sceene, every 200ms
+        // or every 1/5 sec add new snowflake
+        // TODO:change to requestAnimationFrame()
+        // how do you do that every 1/5 of sec though??
+        flakeTimer = setInterval(addFlake, 200);
+
+        // this draws initial setting
+        Draw();
+
+        // animate timer gets called every 30ms or every 30 frames
+        // per second
+        // TODO: this might be where you add rAF();
+        setInterval(animate, 30);
+      }
+
+      // each time this gets called we add a new snowflake
+      function addFlake() {
+        // we put our new snowflake in the array of snowflakes
+        flakeArray[flakeArray.length] = new Flake();
+        // once length of snowflake array has reach number of maxFlakes
+        // we clear the snowflake timer so that no further flakes get added
+        if (flakeArray.length == maxFlakes) {
+          clearInterval(flakeTimer);
+        }
+      }
+        // blank function draws night sky, the background with a deep-purple
+        // it fills the rectangle on the buffer canvas starting at upper
+        // left to lower right, all is taking place on offscreen buffer canv
+      function blank() {
+        bufferCanvasCtx.fillStyle = "#330033";
+        bufferCanvasCtx.fillRect(0,0,bufferCanvasCtx.canvas.width,
+          bufferCanvasCtx.canvas.height);
+      }
+
+      // animation function, every time it gets called, every 30ms
+      // it first calls update then draw
+      function animate() {
+        // responsible for moving all animated objects to the screen
+        // so each snowflake in its new location
+        Update();
+        // once each snowflake has been moved to its proper location,
+        // we call draw which animates the scene and copies the contents
+        // of the buffer canvas to the onscreen canvas
+        Draw();
+      }
+
+      function Update() {
+        // for all snowflakes in snowflakes array need to update position
+        // based on properties.
+        for (var i = 0; i < flakeArray.length; i++) {
+          // we check to see if the y value of the snowflake is less
+          // than the y value of the canvas, in other words, it still hasn't
+          // reached the bottom of the canvas, if true, we update snowflakes
+          // position
+          if (flakeArray[i].y < context.canvas.height) {
+            // we update y to be whatever speed is, so it will fall down more
+            // speed is always positive, and a larger y value is further down
+            // the screen
+            flakeArray[i].y += flakeArray[i].speed;
+            // after updating flake y, has it fallen off bottom of page?
+            // in other words, is its y now greater than the canvas y?
+            // if so, its fallen off, reset it to the top
+            if (flakeArray[i].y > context.canvas.height){
+              flakeArray[i].y = -5;
+            }
+            // each time around loop we add the drift to its x position
+            // even if flake was reset to top it gets an updated x position
+            flakeArray[i].x += flakeArray[i].drift;
+            // now that we updated x, we want to make sure it hasn't drifted
+            // off the right side of the screen, or that its x is not now
+            // greater than canvas width, if so, reset to 0, which is fine
+            // since it was off screen you won't see it jerk over to the left
+            if (flakeArray[i].x > context.canvas.width) {
+              flakeArray[i].x = 0;
+            }
+          }
+        }
+      }
+
+      // After update the draw function is responsible for drawing everything
+      // in its new location
+      function Draw() {
+        // save and restore below for context, not mandatory but good
+        // practice to put them in, in case any drawing function comes
+        // before or after this drawing function
+        context.save();
+
+        // create a clipping region
+        bufferCanvasCtx.beginPath();
+        bufferCanvasCtx.fillStyle="black";
+        bufferCanvasCtx.fillRect(0,0,bufferCanvas.width,bufferCanvas.height);
+        bufferCanvasCtx.arc(bufferCanvas.width/2,bufferCanvas.height/2,bufferCanvas.height/3,0,2*Math.PI);
+        bufferCanvasCtx.clip();
+
+        // blank function draws night sky, the background with a deep-purple
+        // it fills the rectangle on the buffer canvas starting at upper
+        // left to lower right, all is taking place on offscreen buffer canv
+        blank();
+
+        // this draws each snowflake on buffercanvas
+        for (var i = 0; i < flakeArray.length; i++) {
+          // for each snowflake on buffer canvas we fill it to be white
+          bufferCanvasCtx.fillStyle = "white";
+          bufferCanvasCtx.fillRect(flakeArray[i].x, flakeArray[i].y, flakeArray[i].width, flakeArray[i].height);
+        }
+
+        // once done drawing snowflakes on buffer canvas we
+        // copy the entire rendered image from the buffer canvas
+        // onto the canvas onto the screen using the drawImage function
+        // thats on the canvas on the screen using bufferCanvas as the source
+        // copy from upper left corner all way to right
+        context.drawImage(bufferCanvas, 0,0,bufferCanvas.width, bufferCanvas.height);
+        context.restore();
+      }
+
+    </script>
+  </head>
+  <body onload="init()">
+    <canvas id="testCanvas" width="800" height="800">
+      Canvas not supported
+    </canvas>
+  </body>
+</html>

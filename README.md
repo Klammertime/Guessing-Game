@@ -1,20 +1,15 @@
-# Hangman with Snow: Snowed In
-This project was originally created for CS-22A and then improved later to add 
-HTML5 canvas, object-oriented JavaScript, svg graphics, and responsive web design using Flexbox.
+#Hangman with Snow: Snowed In
+I created a guessing game using object-oriented JavaScript and Web Storage API. This project was originally created for JavaScript for Programmers at Foothill College and then improved using Canvas, SVG images, and responsive web design using Flexbox.
 
-**CS-22A: Guessing Game** ~ Foothill College JavaScript for Programmers
-
-Usage
------
-Navigate to project hosted on github.com [**here**](http://klammertime.github.io/Snowed-In/)
+###[**~PLAY SNOWED IN ONLINE HERE~**](http://klammertime.github.io/Snowed-In/)
 
 ##Technologies Used
-Object-Oriented JavaScript, HTML5 Canvas, Web Storage API (locatlStorage), Flexbox, svg graphics 
+Object-Oriented JavaScript, HTML5 Canvas, Web Storage API (locatlStorage), Flexbox, SVG graphics 
 
 ##Game Rules
 1. The goal is to guess the correct word while avoiding getting snowed in.
-2. Each time you lose a game, the snow will increase.
-3. Each time you win a game, the snow will decrease.
+2. When you lose a game, the snow will increase.
+3. When you win a game, the snow will decrease.
 4. Incorrectly guessed letters show up under wrong letters. 
 
 ##Resources
