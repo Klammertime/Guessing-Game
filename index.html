@@ -1,16 +1,18 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<html>
 
 <head>
     <meta charset="utf-8">
     <title>Snowed In</title>
+
     <link rel="stylesheet" href="css/main.css" media="all">
     <script src="https://use.typekit.net/mmc7znj.js"></script>
     <script>
-    try {
-        Typekit.load({
-            async: true
-        });
-    } catch (e) {}
+        try {
+            Typekit.load({
+                async: true
+            });
+        } catch (e) { }
     </script>
 </head>
 
@@ -19,7 +21,7 @@
         <section id="snowScene" class="left"></section>
         <section class="gameArea right">
             <h1 class="logo-font">Snowed In</h1>
-            <p>Hangman with snow!</p>
+            <p>The worse your score, the worse the snowstorm.</p>
             <p id="display" class="letters"></p>
             <form>
                 <fieldset class="guessArea">
@@ -29,14 +31,15 @@
                     <p class="wrongHeader">Wrong Letters</p>
                     <p id="wrong" class="letters wrong"> </p>
                     <progress value="0" max="7"></progress>
-                    <p> Score: <span id="score"></span></p>
-                    <a class="btn" type="submit" name="Restart" value="Restart">Restart</a>
+                    <p> Score:
+                        <span id="score"></span>
+                    </p>
+                    <a id="restart" class="btn" type="submit" name="Restart" value="Restart">Restart</a>
                 </fieldset>
             </form>
         </section>
     </main>
     <footer></footer>
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
 </body>

@@ -153,7 +153,7 @@ let flake = new Flake();
 flake.createCollection();
 
 //Define a container for the game, its variables and its methods.
-let game = {
+const game = {
   score: 0,
   answerPosition: 0, // position of the current answer in the answersList - start at 0
   display: '', // the current dash/guessed letters display - ex '-a-a--r--t'
@@ -171,9 +171,17 @@ let game = {
     'moon',
     'northern lights',
     'snowstorm'
-  ]
+  ],
+  restartText: `Press RESTART to play again.`,
+  winText: `Congratulations, you win!`,
+  loseText: `You lose. The snow is getting worse!`
 };
 
+const wrongEl = document.getElementById('wrong');
+const guessEl = document.getElementById('guess');
+const displayEl = document.getElementById('display');
+const scoreEl = document.getElementById('score');
+const progressEl = document.querySelector('progress');
 game.restart = () => {
   // Initialize the game at the beginning or after restart
   // Get the answer position from storage
@@ -192,11 +200,12 @@ game.restart = () => {
   game.over = false;
 
   // Initialize the web page (the view)
-  $('progress').val('0'); // initialize the progress bar
-  $('#display').text(game.display);
-  $('#wrong').text('');
-  $('#guess').val('');
-  $('#guess').focus();
+
+  progressEl.value = '0'; // initialize the progress bar
+  displayEl.textContent = game.display;
+  wrongEl.textContent = '';
+  guessEl.value = '';
+  guessEl.focus();
   game.updateScore(0);
   game.updatePosition();
 };
@@ -204,11 +213,12 @@ game.restart = () => {
 game.play = () => {
   // Invoked when the user enters a letter
   if (game.over) {
-    $('#wrong').text(`Press RESTART to play again.`);
+    // TODO should i have a data.json file for these strings rather than having them all over the place?
+
+    wrongEl.textContent = game.restartText;
   } else {
-    let letter = $('#guess')
-      .val()
-      .toLowerCase();
+    let letter = guessEl.value.toLowerCase();
+
     let position = game.answer.indexOf(letter);
     if (position >= 0) {
       // It's a good guess, update the game display in the model
@@ -220,27 +230,27 @@ game.play = () => {
         position = game.answer.indexOf(letter, position + 1);
       }
       // update the dash display in the view
-      $('#display').text(game.display);
+
+      displayEl.textContent = game.display;
     } else {
-      // If it's a wrong guess
       game.wrong = `${letter} ${game.wrong}`;
       game.wrongCount++;
 
-      $('#wrong').text(game.wrong);
-      $('progress').val(game.wrongCount);
+      wrongEl.textContent = `${game.wrong}`;
+      progressEl.value = game.wrongCount;
     }
     // reinitialize the guess after a delay for usability
-    setTimeout(() => $('#guess').val(''), 1000);
-    // check for a win or loss
+    setTimeout(function() {
+      guessEl.value = '';
+    }, 1000);
     game.outcome();
   }
 };
 
 game.outcome = () => {
-  // check if the game is won or lost
   if (game.answer === game.display) {
-    $('#wrong').text(`Congratulations! You win and may leave the house!`);
-    game.over = true; // game is over.  User has to restart to play again
+    wrongEl.textContent = game.winText;
+    game.over = true;
     game.updateScore(20);
     flake.maxFlakes -= 300;
     flake.speed -= 50;
@@ -249,32 +259,29 @@ game.outcome = () => {
     flake.maxFlakes += 300;
     flake.speed += 50;
     flake.createCollection();
-    $('#wrong').text(`You lose. The snow is getting worse!`);
-    game.over = true; // game is over.  User has to restart to play again
-    // update score in local storage and on page
+    wrongEl.textContent = game.loseText;
+    game.over = true;
     game.updateScore(-10);
   }
 };
 
 game.updateScore = increment => {
-  // add increment to the score (if any) in local storage
   localStorage['Guessing Game Score'] =
     Number(localStorage.getItem('Guessing Game Score')) + increment;
-  // display the score on the page
-  $('#score').text(localStorage.getItem('Guessing Game Score'));
+  scoreEl.textContent = localStorage.getItem('Guessing Game Score');
 };
 
 game.updatePosition = () => {
   // use the modulo operator to cycle through the list, if the number is smaller, it returns
   // that number, unless its the same, so returns 0 and starts over
   game.answerPosition = (game.answerPosition + 1) % game.answersList.length;
-  // save it in storage
   localStorage['Guessing Game Position'] = game.answerPosition;
 };
 
 // Main program starts here
-$(document).ready(() => {
+
+document.addEventListener('DOMContentLoaded', function() {
   game.restart();
-  $('#guess').on('input', game.play);
-  $('a').click(game.restart);
+  guessEl.addEventListener('input', game.play);
+  document.getElementById('restart').addEventListener('click', game.restart);
 });
